@@ -1,15 +1,20 @@
-import puppeteer from "puppeteer"
+import { HomePage } from "./pages/homePage.js";
+import { createBrowser } from "./browsers/browserSetup.js";
 async function run(){
     let browser;
     try{
-        browser = await puppeteer.launch({
-	        headless: false,
-	        args: ["--disable-setuid-sandbox"],
-	        'ignoreHTTPSErrors': true
-	    });        const page = await browser.newPage();
-        await page.goto('https://www.imot.bg/', { waitUntil: 'networkidle0' });
-        await page.click('#BG-23')
-        const data = await page.evaluate(() => document.querySelector('*').outerHTML);
+        const browser = await createBrowser();
+        const page = await browser.newPage();
+        
+        await page.setViewport({ width: 1280, height: 800 });
+        
+        const homePage = new HomePage(page);
+        
+        // Start automation workflow
+        console.log('Starting automation process...');
+        await homePage.navigate()
+        await homePage.acceptCookies();
+        const data = await homePage.evaluate(() => document.querySelector('*').outerHTML);
         console.log(data);
         
     }catch(e){
