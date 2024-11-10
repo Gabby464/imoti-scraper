@@ -1,0 +1,16 @@
+{
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    
+    "editor.formatOnSave": true,
+    
+    "eslint.autoFixOnSave": true,
+  
+
+    "eslint.validate": [
+  { "language": "javascript", "autoFix": true },
+  { "language": "typescript", "autoFix": true }
+],
+  
+    "eslint.alwaysShowStatus": true
+  }
+  
